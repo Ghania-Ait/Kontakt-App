@@ -16,6 +16,23 @@ mongoose.connect(uri).then (()=>{
             console.error(err);
         
     })
+
+    const corsOptions = {
+        //'Access-Control-Allow-Origin': '*',
+        origin: '*',
+        credentials: true,
+        optionSuccessStatus: 200,
+    }
+   
+    app.use(cors(corsOptions));
+    
+    
+    
+    
+    
+    
+
+
 app.use('/',friendsRoute )
 
 
