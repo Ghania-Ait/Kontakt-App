@@ -15,26 +15,44 @@ const FriendModel= require('../Models/friends.js');
 
 
  async function postFriends (req,res){
-    // const data=req.body;
-    // console.log(data)
-
-    // // if (!data.firstName || !data.lastName || !data.phone ){
-    // //     res.status(400).send('Falsche Daten')
-    // // }
-
-    // const friend={
-    //     firstName: data.firstName,
-    //     lastName: data.lastName,
-    //     email: data.email,
-    //     address: data.address,
-    //     city: data.city,
-    //     phone: data.phone,
-    //     gender: data.gender,
-    //     birthday: data.birthday,
-    // }
-    const newFriend = new FriendModel({firstName:'Jesica', lastName:'Klark'});
-    await newFriend.save();
-    res.send('A new friend was created ...')
+    let {firstName, lastName, email,address,city,phone,gender,birthday} = req.body;
+    try {
+        await FriendModel.create({firstName, lastName, email,address,city,phone,gender,birthday})
+        res.status(201).send('created');
+      } catch (error) {
+        console.error(error)
+        res.status(500).send(error)
+      }
+    //   res.send('created')
+    // const newFriend = new FriendModel({firstName:'Jesica', lastName:'Klark'});
+    // await newFriend.save();
+    // res.send('A new friend was created ...')
 }
 
-module.exports={getFriends,postFriends}
+
+
+
+async function updateFriendsListe(req,res){
+
+try{
+    const id= req.params.id;
+     console.log('id:',id)
+    console.log('Body:', req.body);
+    const friend = await FriendModel.findByIdAndUpdate(id, req.body,{
+        new:true,
+        runValidators:true,
+        context:'query',
+    });
+    res.json(friend);
+
+}catch(error){
+    console.log(error)
+}
+
+
+
+}
+
+
+
+module.exports={getFriends,postFriends,updateFriendsListe}

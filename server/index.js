@@ -26,12 +26,8 @@ mongoose.connect(uri).then (()=>{
    
     app.use(cors(corsOptions));
     
-    
-    
-    
-    
-    
-
+  
+app.use(express.json())// tres important pour qu il ramene des donnes sous forme de json   
 
 app.use('/',friendsRoute )
 

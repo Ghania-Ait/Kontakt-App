@@ -6,7 +6,7 @@ const mongoose=require('mongoose');
 const FriendSchema=new mongoose.Schema({
     firstName:{
         type: 'string',
-        required: true
+        required: false
 
     },
     lastName:{
